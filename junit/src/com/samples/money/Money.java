@@ -12,16 +12,16 @@ public class Money implements IMoney {
 		return fAmount;
 	}
 	
-	public String fCurrency(){
+	public String currency(){
 		return fCurrency;
 	}
 	
 	/**
 	 *	Adds a money to this money .Forward the request to the addMoney helper.
 	 **/
-	public Money(int amount, String currenty){
+	public Money(int amount, String currency){
 		fAmount = amount;
-		fCurrency = currenty;
+		fCurrency = currency();
 	}
 	
 	public IMoney add(IMoney m){
@@ -29,38 +29,63 @@ public class Money implements IMoney {
 	}
 	@Override
 	public IMoney addMoney(Money m) {
-		
-		return null ;
+		if(m.currency().equals(currency())){
+			return new Money(amount()+m.amount(), currency());
+			
+		}
+		return MoneyBag.create(this,m);
 	}
 	@Override
 	public IMoney addMoneyBag(MoneyBag s) {
-		return null;
+		return s.addMoney(this);
 	}
-	@Override
-	public boolean isZero() {
+	public boolean equals(Object anObject){
+		if(isZero()){
+			if(anObject instanceof IMoney){
+				return((IMoney)anObject).isZero();
+			}
+		}
+		if(anObject instanceof Money){
+			Money aMoney =(Money)anObject;
+			return aMoney.currency().equals(currency()) && amount()==aMoney.amount();
+		}
 		return false;
 	}
+	
+	public int hashCode(){
+		if(fAmount == 0){
+			return 0;
+		}
+		return fCurrency.hashCode()+fAmount;
+	}
+	
 	@Override
-	public IMoney multiply(int facter) {
-		return null;
+	public boolean isZero() {
+		return amount() ==0;
+	}
+	
+	@Override
+	public IMoney multiply(int factor) {
+		return new Money(amount(), currency());
 	}
 	@Override
 	public IMoney negate() {
-		return null;
+		return new Money(-amount(), currency());
 	}
 	@Override
 	public IMoney subtract(IMoney m) {
-		return null;
+		return add(m.negate());
 	}
-	@Override
-	public void appendTo(MoneyBag m) {
+	public String toString(){
+		StringBuffer buffer = new StringBuffer();
+		buffer.append("["+amount()+""+currency()+"]");
+		return buffer.toString();
 		
 	}
 
 	@Override
-	public Money add(Money m) {
-		// TODO Auto-generated method stub
-		return null;
+	public void appendTo(MoneyBag m) {
+		
 	}
 	
 

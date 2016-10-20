@@ -1,0 +1,57 @@
+package com.samples.money;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MoneyBag implements IMoney{
+	
+	private List<Money> fMonies = new ArrayList<Money>(5);
+	
+	public static IMoney create(IMoney m1, IMoney m2) {
+		MoneyBag result = new MoneyBag();
+		m1.appendTo(result);
+		m2.appendTo(result);
+		return result.simplify();
+	}
+	public IMoney add(IMoney m){
+		return m.addMoneyBag(this);
+	}
+
+	@Override
+	public IMoney addMoney(Money m) {
+		return null;
+	}
+
+	@Override
+	public IMoney addMoneyBag(MoneyBag s) {
+		return null;
+	}
+
+	@Override
+	public boolean isZero() {
+		return false;
+	}
+
+	@Override
+	public IMoney multiply(int facter) {
+		return null;
+	}
+
+	@Override
+	public IMoney negate() {
+		return null;
+	}
+
+	@Override
+	public IMoney subtract(IMoney m) {
+		return null;
+	}
+
+	@Override
+	public void appendTo(MoneyBag m) {
+		
+	}
+
+
+	
+}

@@ -8,7 +8,7 @@ public interface IMoney {
 	/**
 	 * Adds money to this money 
 	 **/
-	public abstract Money add(Money m);
+	public abstract IMoney add(IMoney m);
 	
 	/**
 	 *	Add a simple Money to this money.This is a helper method for implementing double dispath 
@@ -28,7 +28,7 @@ public interface IMoney {
 	/**
 	 *	Multiplies a money by the given factor 
 	 **/
-	public abstract IMoney multiply(int facter);
+	public abstract IMoney multiply(int factor);
 	
 	/**
 	 *	Negates this money 
